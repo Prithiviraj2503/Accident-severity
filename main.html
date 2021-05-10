@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, Intial-scale=1">
+	<title>Accident</title>
+	<style>
+* {
+	box-sizing: border-box;
+}
+body{
+	width:100%;
+	margin: auto;
+	font-family: Verdana, sans-serif;
+  background-image: url("{{ url_for('static', filename = 'nhome.jfif') }}");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+	}
+header{
+  		background-color: blue;
+  		color:white;
+  		text-align: center;
+  		padding:15px;
+  		
+  	}
+header h2{
+  		color:white;
+  	}
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 20px;
+}
+.topnav a:hover {
+  background-color: yellow;
+  color: black;
+}
+.topnav-right {
+  float: right;
+}
+.middlebox{ 
+	margin-top: 15px;
+	margin-left: 30px;
+	float:left;  
+	width:70%; 
+	height:100%; 
+}
+h3{
+	color: red;
+	text-align: center;
+	font-weight: bold;
+}
+p{
+text-align: justify;
+margin-right: 15px;
+}
+h2{
+	color: green;
+}
+th{
+	color: #0033cc;
+	font-weight: bold;
+}
+td,th{
+	border: none;
+	padding: 12px;
+	text-align: left;
+	margin-left: 30px;
+}
+select, input{
+	padding: 8px;
+	width:100%;
+	border-color:#e80c89;
+	border-radius: 5%; 
+}
+.ansbox{
+	margin: auto;
+	width: 90%;
+	font-family: calibri;
+	font-size: 20px;
+	text-align: justify;
+	box-shadow: 8px 8px 8px silver;
+  padding: 20px;
+  text-align: justify;
+  box-shadow: 20px 20px 50px grey;
+  background-color: white;
+}
+.anbody{
+	width:50%;
+	margin: auto;
+	font-family: Verdana, sans-serif;
+
+}
+.ansbox:hover{
+box-shadow: 40px 40px 40px silver;
+}
+.imgtext{
+  position: absolute;
+  font-size: 35px;
+  font-weight: bold;
+  color: darkblue;
+  text-shadow: 5px 5px 5px silver;
+  top: 45%;
+  left: 40%;
+  padding-left:20px;
+  padding-right:20px;
+  transform: translate(-50%, -50%);
+  animation: imgtext 10s infinite; 
+  animation-timing-function: ease-out;
+}
+ @keyframes imgtext { 
+            0% { 
+                margin-bottom: -40px; 
+                letter-spacing: none;
+            } 
+  
+            20% { 
+                letter-spacing: 10px; 
+                margin-bottom: -40px;
+                color:green; 
+            } 
+  
+            50% {  
+                margin-bottom: -40px; 
+                color:red;
+            }
+            80% { 
+                letter-spacing: 5px; 
+                margin-bottom: -40px;
+                color:yellow; 
+            } 
+        }
+  .but{
+  	font-weight: bold; 
+  	background-color: green;
+  	color:white;
+  	border-style: groove;
+  	border-color: none; 
+  }
+</style>
+</head>
+<body id="home">
+<header><h2>ACCIDENT SEVERITY PREDICTION</h2></header>
+
+<div class="topnav">
+  <a href="#home">Home</a>
+  <a href="#news">News</a>
+  <a href="#contact">Contact</a>
+  <a href="#predict">Prediction</a>
+  <div class="topnav-right">
+    <a href="#search">Search</a>
+    <a href="#about">About</a>
+  </div>
+</div>
+
+<div class="homeimgcont">
+<img src="{{ url_for('static', filename = 'shome.jpg') }}" alt="roadsafety" width="100%" height="500">
+<div class="imgtext imganim">Accident happend? Confused with the severity?Just give me a input, I tell you what happend!</div>
+</div>
+<br><br>
+<div>
+
+<div class="anbody">
+<div class="ansbox">
+<marquee style="color:red"><b>***Please give me a following inputs to make a prediction!***</b></marquee>
+<center>
+<form action="{{ url_for('main') }}" method="POST" name="form" id="predict">
+
+<table>
+<tr>
+<th>Number of Vehicle</th>
+<td>
+	<input type="text" name="noofveh" placeholder="Enter number of vehicle" required>
+</td>
+</tr>
+
+<tr>
+<th>Road type</th>
+<td>
+	<select name="roveh">
+		<option value="0">A</option>
+		<option value="1">A(M)</option>
+		<option value="2">B</option>
+		<option value="3">Motor way</option>
+    <option value="4">Unclassified</option>
+	</select>
+</td>
+</tr>
+
+<tr>
+<th>Road surface</th>
+<td>
+<select name="roadsurf">
+  <option value="0">Dry</option>
+  <option value="1">Frost</option>
+  <option value="2">Flood</option>
+  <option value="3">Snow</option>
+  <option value="4">Wet</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<th>Light cond</th>
+<td>
+<select name="light">
+  <option value="1">no street lighting</option>
+  <option value="2">street lighting unknown</option>
+  <option value="2">street lights present and lit</option>
+  <option value="2">Darkness</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<th>wether</th>
+<td>
+<select name="wether">
+<option value="0">Fine without high winds</option>
+<option value="1">Fog or mist – if hazard</option>
+<option value="2">Fine with high winds</option>
+<option value="3">Other</option>
+<option value="4">Raining without high winds</option>
+<option value="5">Raining with high winds</option>
+<option value="6">Snowing without high winds</option>
+<option value="7">Snowing with high winds</option>
+<option value="8">Unknown</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<th>Casuality class</th>
+<td>
+<select name="cclass">
+<option value="0">Driver</option>
+<option value="1">Passenger</option>
+<option value="2">Pedestrian</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<th>Sex</th>
+<td>
+<select name="sex">
+<option value="0">Female</option>
+<option value="1">Male</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<th>Age</th>
+<td>
+<input type="number" name="age">
+</td>
+</tr>
+
+<tr>
+<th>type veh</th>
+<td>
+<select name="typeveh">
+<option value="0">Agri vehicle</option>
+<option value="1">Bus</option>
+<option value="2">Car</option>
+<option value="3">Goods Vehicle</option>
+<option value="4">Motorcycle</option>
+<option value="5">Pedal cycle</option>
+<option value="6">Other vehicle</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<th><input type="submit" value="Predict" class="but"></th>
+<td>
+<input type="reset" value="Reset" class="but" style="background-color:red">
+</td>
+</tr>
+
+</table>
+</form>
+
+<div class="ansbox" align="center" id="ansbox">
+    {% if result %}
+        {% for variable, value in original_input.items() %}
+            <b>{{ variable }}</b> : {{ value }}<br>
+        {% endfor %}
+        <br>
+        <br><p style="font-size:20px;color: red; font-weight: bold">Result: {{ result }}</p>
+    {% endif %}
+</div>
+
+</center>
+</div>
+</div>
+</div>
+
+
+</div>
+
+</div>
+
+</body>
+</html>
